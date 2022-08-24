@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-RAY_VERSION="1.11.0-gpu"
-TORCH_VERSION="1.12.0+cu116"
+RAY_VERSION="${1}"
+TORCH_VERSION="${2}"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
