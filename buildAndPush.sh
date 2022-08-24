@@ -19,15 +19,10 @@ VERSION="$(echo ${1:-ray${RAY_VERSION}-pytorch${TORCH_VERSION}-$TIMESTAMP}| sed 
 TAG="${REGISTRY}/${NAMESPACE}/${NAME}:${VERSION}"
 
 docker build \
-  --build-arg RAY_VERSION=${RAY_VERSION} \
-  --build-arg TORCH_VERSION=${TORCH_VERSION} \
-  -t ${TAG} \
+  --build-arg RAY_VERSION="${RAY_VERSION}" \
+  --build-arg TORCH_VERSION="${TORCH_VERSION}" \
+  -t "${TAG}" \
   .
 
-# REDSONJA_READ_WRITE key is configurable in https://travis.ibm.com/codeflare/base-images/settings
-
-# This happens in the github action
-#echo "${GH_REGISTRY_PUSH_TOKEN}" | docker login "${REGISTRY}/${NAMESPACE}" --username "${GH_REGISTRY_USER}" --password-stdin
-
-docker push ${TAG}
+docker push "${TAG}"
 
