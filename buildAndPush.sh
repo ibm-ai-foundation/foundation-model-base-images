@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#VERSION_NAME_OVERRIDE=
 RAY_VERSION="${1}"
 TORCH_VERSION="${2}"
 
@@ -15,7 +16,7 @@ TIMESTAMP=$(date "+%Y%m%d-%H%M%S")
 
 # note: docker tags must be valid ASCII and may contain lowercase and uppercase letters, digits, underscores, periods and dashes.
 # A tag name may not start with a period or a dash and may contain a maximum of 128 characters
-VERSION="$(echo ${1:-ray${RAY_VERSION}-pytorch${TORCH_VERSION}-$TIMESTAMP}| sed 's/[^[:alnum:]\.\_\-]//g')"
+VERSION="$(echo ${VERSION_NAME_OVERRIDE:-ray${RAY_VERSION}-pytorch${TORCH_VERSION}-$TIMESTAMP}| sed 's/[^[:alnum:]\.\_\-]//g')"
 TAG="${REGISTRY}/${NAMESPACE}/${NAME}:${VERSION}"
 
 docker build \
