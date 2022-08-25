@@ -10,17 +10,14 @@ RUN sudo apt-get update && sudo apt-get install -y \
     && sudo rm -rf /var/lib/apt/lists/* \
     && sudo apt-get clean
 
-RUN mkdir /home/ray/roberta
-WORKDIR /home/ray/roberta
-
-# Add src/ files
-#COPY src/* .
-ENV PYTHONPATH "/home/ray/roberta:${PYTHONPATH}"
-
 #install torch
 ARG TORCH_VERSION
 RUN pip install --no-cache-dir torch=="${TORCH_VERSION}" -f https://download.pytorch.org/whl/torch_stable.html
 
+RUN mkdir /home/ray/workspace
+WORKDIR /home/ray/workspace
+ENV PYTHONPATH "/home/ray/workspace:${PYTHONPATH}"
+
 # change group permissions for running in OCP
-RUN sudo chgrp -R 0 /home/ray/roberta
-RUN sudo chmod -R g+w /home/ray/roberta
+RUN sudo chgrp -R 0 /home/ray/workspace
+RUN sudo chmod -R g+w /home/ray/workspace
