@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-#VERSION_NAME_OVERRIDE=
-RAY_VERSION="${1}"
-TORCH_VERSION="${2}"
+# override image name with optional command line argument ./buildAndPush.sh <your_custom_tag>
+# otherwise it will be tagged with the ray, torch version and timestamp
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -16,7 +15,7 @@ TIMESTAMP=$(date "+%Y%m%d-%H%M%S")
 
 # note: docker tags must be valid ASCII and may contain lowercase and uppercase letters, digits, underscores, periods and dashes.
 # A tag name may not start with a period or a dash and may contain a maximum of 128 characters
-VERSION="$(echo ${VERSION_NAME_OVERRIDE:-ray${RAY_VERSION}-pytorch${TORCH_VERSION}-$TIMESTAMP}| sed 's/[^[:alnum:]\.\_\-]//g')"
+VERSION="$(echo ${1:-ray${RAY_VERSION}-pytorch${TORCH_VERSION}-$TIMESTAMP}| sed 's/[^[:alnum:]\.\_\-]//g')"
 TAG="${REGISTRY}/${NAMESPACE}/${NAME}:${VERSION}"
 
 docker build \
