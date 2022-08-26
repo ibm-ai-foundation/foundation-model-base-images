@@ -16,7 +16,9 @@ RUN pip install --no-cache-dir torch=="${TORCH_VERSION}" -f https://download.pyt
 
 RUN mkdir /home/ray/workspace
 WORKDIR /home/ray/workspace
+
 ENV PYTHONPATH "/home/ray/workspace:${PYTHONPATH}"
+ENV RAY_USAGE_STATS_ENABLED=0
 
 # change group permissions for running in OCP
 RUN sudo chgrp -R 0 /home/ray/workspace
